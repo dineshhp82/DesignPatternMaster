@@ -8,7 +8,7 @@ namespace MasterDesginPattern
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            Console.WriteLine("Hello, Design Pattern World!");
 
             //-------------Adapter---------------
             CurrencyDisplay  currencyDisplay =new CurrencyDisplay();
