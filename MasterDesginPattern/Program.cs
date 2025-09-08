@@ -1,4 +1,6 @@
 ﻿using MasterDesginPattern.Adapter;
+using MasterDesginPattern.Proxy;
+using MasterDesginPattern.TemplateMethod;
 
 namespace MasterDesginPattern
 {
@@ -8,12 +10,27 @@ namespace MasterDesginPattern
         {
             Console.WriteLine("Hello, World!");
 
+            //-------------Adapter---------------
             CurrencyDisplay  currencyDisplay =new CurrencyDisplay();
             currencyDisplay.DisplayBorkerRecordOnUI();
 
             PaymentGateway paymentGateway = new PaymentGateway();
             paymentGateway.ProcessCheckOut();
 
+
+            //------------Proxy--------------
+            CalculationEngineClient calculationEngine=new CalculationEngineClient();
+            calculationEngine.PerformCalculation();
+
+            StockPrice stockPrice = new StockPrice();
+            stockPrice.ProcessStockPrice();
+
+            RateLimittingProxy rateLimittingProxy = new RateLimittingProxy();
+
+            //-----------------Template-------------------
+            BrokerFileParser brokerFileParser = new BrokerFileParser();
+            PaymentGatewayClient paytmGateway = new PaymentGatewayClient();
+            
             Console.ReadLine();
 
         }
