@@ -1,5 +1,6 @@
 ﻿using MasterDesginPattern.Adapter;
 using MasterDesginPattern.Proxy;
+using MasterDesginPattern.Strategy;
 using MasterDesginPattern.TemplateMethod;
 
 namespace MasterDesginPattern
@@ -30,7 +31,11 @@ namespace MasterDesginPattern
             //-----------------Template-------------------
             BrokerFileParser brokerFileParser = new BrokerFileParser();
             PaymentGatewayClient paytmGateway = new PaymentGatewayClient();
+
+            //------------------Strategy--------------------------
+            Shipment shipment = new Shipment();
             
+
             Console.ReadLine();
 
         }
