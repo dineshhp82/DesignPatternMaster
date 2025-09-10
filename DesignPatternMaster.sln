@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36408.4 d17.14
+VisualStudioVersion = 17.14.36408.4
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasterDesginPattern", "MasterDesginPattern\MasterDesginPattern.csproj", "{17A7DF6F-7692-4B23-809B-8AF1A9B3310E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasterDesignPattern", "MasterDesginPattern\MasterDesignPattern.csproj", "{17A7DF6F-7692-4B23-809B-8AF1A9B3310E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
