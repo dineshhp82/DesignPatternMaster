@@ -3,6 +3,7 @@ using MasterDesginPattern.Strategy;
 using MasterDesginPattern.TemplateMethod;
 using MasterDesignPattern.Adapter;
 using MasterDesignPattern.Builder;
+using MasterDesignPattern.Factory;
 
 namespace MasterDesginPattern
 {
@@ -12,6 +13,13 @@ namespace MasterDesginPattern
         {
             Console.WriteLine("Hello, Design Pattern World!");
 
+
+            //----------factory----------------
+            SimpleFactory simpleFactory = new SimpleFactory();
+            simpleFactory.SimulateSimpleFactory();
+
+            WarningFactory warningFactory=new WarningFactory();
+            warningFactory.Simulator();
 
             //-------------Builder ---------------------
             ClassicBuilder classicBuilder = new ClassicBuilder();

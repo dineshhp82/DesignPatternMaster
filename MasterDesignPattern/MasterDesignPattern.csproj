@@ -8,7 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Factory\" />
     <Folder Include="COR\" />
     <Folder Include="Composite\" />
     <Folder Include="Prototype\" />
