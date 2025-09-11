@@ -1,7 +1,8 @@
-﻿using MasterDesginPattern.Adapter;
-using MasterDesginPattern.Proxy;
+﻿using MasterDesginPattern.Proxy;
 using MasterDesginPattern.Strategy;
 using MasterDesginPattern.TemplateMethod;
+using MasterDesignPattern.Adapter;
+using MasterDesignPattern.Builder;
 
 namespace MasterDesginPattern
 {
@@ -10,6 +11,18 @@ namespace MasterDesginPattern
         static void Main(string[] args)
         {
             Console.WriteLine("Hello, Design Pattern World!");
+
+
+            //-------------Builder ---------------------
+            ClassicBuilder classicBuilder = new ClassicBuilder();
+            classicBuilder.SimulateHttpRequests();
+
+
+            DirectorBuilder directorBuilder = new DirectorBuilder();
+            directorBuilder.SimulateDirectorBuilder();
+
+            StepBuilder stepBuilder = new StepBuilder();
+            stepBuilder.SimulateStepBuilder();
 
             //-------------Adapter---------------
             CurrencyDisplay  currencyDisplay =new CurrencyDisplay();
@@ -34,7 +47,8 @@ namespace MasterDesginPattern
 
             //------------------Strategy--------------------------
             Shipment shipment = new Shipment();
-            
+
+           
 
             Console.ReadLine();
 

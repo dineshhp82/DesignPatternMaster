@@ -1,4 +1,4 @@
-﻿namespace MasterDesginPattern.Adapter
+﻿namespace MasterDesignPattern.Adapter
 {
     internal class CurrencyDisplay
     {
