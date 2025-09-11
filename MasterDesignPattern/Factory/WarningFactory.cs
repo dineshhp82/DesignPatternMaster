@@ -29,8 +29,8 @@
         {
             return
             [
-                new PositionModel { SecId = 1, SecName = "ABC", MarketValue = 1000, FaceValue = 1000, InteradayQty = -10 },
-                new PositionModel { SecId = 2, SecName = "XYZ", MarketValue = -500, FaceValue = 500, InteradayQty = 5 }
+                new PositionModel (1, "ABC",  1000, 1000,  -10 ),
+                new PositionModel (2, "XYZ",  -500, 500,5 )
             ];
         }
 
@@ -38,8 +38,8 @@
         {
             return
             [
-                new CashProjectionModel { PortfolioCode = "P1", PortfolioName = "Portfolio 1", TransType = "Buy", CurrentCash = 500 },
-                new CashProjectionModel { PortfolioCode = "P2", PortfolioName = "Portfolio 2", TransType = "Sell", CurrentCash = 800 }
+                new CashProjectionModel ( "P1", "Portfolio 1",  "Buy", 500 ),
+                new CashProjectionModel ( "P2", "Portfolio 2",  "Sell", 800 )
             ];
         }
 
@@ -47,8 +47,8 @@
         {
             return
             [
-               new OpenOrderModel { SecId = 1, SecName = "ABC", TransType = "Buy", OpenQty = -10, CloseQty = 0 },
-               new OpenOrderModel { SecId = 2, SecName = "XYZ", TransType = "Sell", OpenQty = 5, CloseQty = -5 }
+               new OpenOrderModel (  1,  "ABC", "Buy", -10, 0 ),
+               new OpenOrderModel (  2,  "XYZ", "Sell", 5,  -5 )
             ];
         }
 
@@ -91,42 +91,6 @@
           OpenOrderWarningCreator: WarningFactory
              override CreateWarning() => new OpenOrdersWarning();
          */
-
-    // This is Value object because there is no identity 
-    // Should be Immutable so that no one change the 'message' once created
-    public record Warning(string Type, string Message, string Category);
-
-    // These are Domain Model becuase they are related to specific domain 
-    // These are also Immutable but have identity like 
-    // Position  -> Security Id
-    // Cash  -> Portfolio Code
-    // Open Order -Security Id
-    // Domain Model 
-
-    public class PositionModel
-    {
-        public int SecId { get; set; }
-        public string SecName { get; set; }
-        public decimal MarketValue { get; set; }
-        public decimal FaceValue { get; set; }
-        public decimal InteradayQty { get; set; }
-    }
-    public class CashProjectionModel
-    {
-        public string PortfolioCode { get; set; }
-        public string PortfolioName { get; set; }
-        public string TransType { get; set; }
-        public decimal CurrentCash { get; set; }
-    }
-    public class OpenOrderModel
-    {
-        public int SecId { get; set; }
-        public string SecName { get; set; }
-        public string TransType { get; set; }
-        public decimal OpenQty { get; set; }
-        public decimal CloseQty { get; set; }
-    }
-
 
     /// <summary>
     /// Base class for different types of warnings.

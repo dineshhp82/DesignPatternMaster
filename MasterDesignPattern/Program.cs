@@ -21,6 +21,9 @@ namespace MasterDesginPattern
             WarningFactory warningFactory=new WarningFactory();
             warningFactory.Simulator();
 
+            RefactorWarningFactory refactorWarningFactory = new RefactorWarningFactory();
+            refactorWarningFactory.Simulator();
+
             //-------------Builder ---------------------
             ClassicBuilder classicBuilder = new ClassicBuilder();
             classicBuilder.SimulateHttpRequests();
