@@ -24,6 +24,13 @@ namespace MasterDesginPattern
             StepBuilder stepBuilder = new StepBuilder();
             stepBuilder.SimulateStepBuilder();
 
+
+           SqlQueryBuilder sqlQueryBuilder = new SqlQueryBuilder();
+            sqlQueryBuilder.CreateQuery();
+
+            EmailSender emailSender = new EmailSender();
+            emailSender.SendEmail();
+
             //-------------Adapter---------------
             CurrencyDisplay  currencyDisplay =new CurrencyDisplay();
             currencyDisplay.DisplayBorkerRecordOnUI();
