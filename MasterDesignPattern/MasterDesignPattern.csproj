@@ -9,7 +9,6 @@
 
   <ItemGroup>
     <Folder Include="COR\" />
-    <Folder Include="Composite\" />
     <Folder Include="Singleton\" />
     <Folder Include="Observerable\" />
   </ItemGroup>

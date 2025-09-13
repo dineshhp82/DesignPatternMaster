@@ -3,6 +3,7 @@ using MasterDesginPattern.Strategy;
 using MasterDesginPattern.TemplateMethod;
 using MasterDesignPattern.Adapter;
 using MasterDesignPattern.Builder;
+using MasterDesignPattern.Composite;
 using MasterDesignPattern.Factory;
 using MasterDesignPattern.Prototype;
 
@@ -13,6 +14,11 @@ namespace MasterDesginPattern
         static void Main(string[] args)
         {
             Console.WriteLine("Hello, Design Pattern World!");
+
+            ModelStatus modelStatus = new ModelStatus();
+            modelStatus.Simulate();
+
+
 
             //------------Prototype-------------------
             
