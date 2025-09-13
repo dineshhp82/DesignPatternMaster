@@ -21,6 +21,8 @@
                 Console.WriteLine($"{item.Category} {item.Message} {item.Category}");
             }
 
+            RefPositionWarning refPositionWarning=new RefPositionWarning();
+
         }
 
 
@@ -59,6 +61,7 @@
 
     public class RefPositionWarning : IWarningFactory<PositionModel>
     {
+        
         public IEnumerable<Warning> GetWarnings(IEnumerable<PositionModel> positions)
         {
             if (positions.Any(x => x.InteradayQty < 0))

@@ -4,6 +4,7 @@ using MasterDesginPattern.TemplateMethod;
 using MasterDesignPattern.Adapter;
 using MasterDesignPattern.Builder;
 using MasterDesignPattern.Factory;
+using MasterDesignPattern.Prototype;
 
 namespace MasterDesginPattern
 {
@@ -12,6 +13,14 @@ namespace MasterDesginPattern
         static void Main(string[] args)
         {
             Console.WriteLine("Hello, Design Pattern World!");
+
+            //------------Prototype-------------------
+            
+            RestoreSettingDefault restoreSettingDefault=new RestoreSettingDefault();
+            restoreSettingDefault.Simulate();
+            
+            OrderSnapShot orderSnapShot=new OrderSnapShot();
+            orderSnapShot.Simulate();
 
 
             //----------factory----------------
