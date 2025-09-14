@@ -4,8 +4,10 @@ using MasterDesginPattern.TemplateMethod;
 using MasterDesignPattern.Adapter;
 using MasterDesignPattern.Builder;
 using MasterDesignPattern.Composite;
+using MasterDesignPattern.COR;
 using MasterDesignPattern.Factory;
 using MasterDesignPattern.Prototype;
+using System.Net.Http.Headers;
 
 namespace MasterDesginPattern
 {
@@ -15,10 +17,23 @@ namespace MasterDesginPattern
         {
             Console.WriteLine("Hello, Design Pattern World!");
 
+
+
+            //--------------COR ----------------
+            RequestEscalation requestEscalation = new RequestEscalation();
+            requestEscalation.Simulate();
+
+            BookingServiceSteps bookingService = new BookingServiceSteps();
+            bookingService.Simulate();
+
+            AtmMoneyDispancer atmMoneyDispancer = new AtmMoneyDispancer();
+            atmMoneyDispancer.Simulate();
+
+            
+
+            //--------------- Composit-------------------
             ModelStatus modelStatus = new ModelStatus();
             modelStatus.Simulate();
-
-
 
             //------------Prototype-------------------
             
