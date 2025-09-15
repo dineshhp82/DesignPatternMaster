@@ -6,8 +6,8 @@ using MasterDesignPattern.Builder;
 using MasterDesignPattern.Composite;
 using MasterDesignPattern.COR;
 using MasterDesignPattern.Factory;
+using MasterDesignPattern.Observerable;
 using MasterDesignPattern.Prototype;
-using System.Net.Http.Headers;
 
 namespace MasterDesginPattern
 {
@@ -16,7 +16,18 @@ namespace MasterDesginPattern
         static void Main(string[] args)
         {
             Console.WriteLine("Hello, Design Pattern World!");
+            //-------------Observer-------------
+            RefactorEventAggregator refactorEvent = new RefactorEventAggregator();
+            refactorEvent.Simulator();
 
+           EventAggregatorSimulator eventAggregatorSimulator=new EventAggregatorSimulator();
+            eventAggregatorSimulator.EventAggregatorSimulate();
+
+            EventBased eventBased = new EventBased();
+            eventBased.Simulator();
+
+            InterfaceBased interfaceBased = new InterfaceBased();
+            interfaceBased.Simulator();
 
 
             //--------------COR ----------------
@@ -29,18 +40,18 @@ namespace MasterDesginPattern
             AtmMoneyDispancer atmMoneyDispancer = new AtmMoneyDispancer();
             atmMoneyDispancer.Simulate();
 
-            
+
 
             //--------------- Composit-------------------
             ModelStatus modelStatus = new ModelStatus();
             modelStatus.Simulate();
 
             //------------Prototype-------------------
-            
-            RestoreSettingDefault restoreSettingDefault=new RestoreSettingDefault();
+
+            RestoreSettingDefault restoreSettingDefault = new RestoreSettingDefault();
             restoreSettingDefault.Simulate();
-            
-            OrderSnapShot orderSnapShot=new OrderSnapShot();
+
+            OrderSnapShot orderSnapShot = new OrderSnapShot();
             orderSnapShot.Simulate();
 
 
@@ -48,7 +59,7 @@ namespace MasterDesginPattern
             SimpleFactory simpleFactory = new SimpleFactory();
             simpleFactory.SimulateSimpleFactory();
 
-            WarningFactory warningFactory=new WarningFactory();
+            WarningFactory warningFactory = new WarningFactory();
             warningFactory.Simulator();
 
             RefactorWarningFactory refactorWarningFactory = new RefactorWarningFactory();
@@ -66,14 +77,14 @@ namespace MasterDesginPattern
             stepBuilder.SimulateStepBuilder();
 
 
-           SqlQueryBuilder sqlQueryBuilder = new SqlQueryBuilder();
+            SqlQueryBuilder sqlQueryBuilder = new SqlQueryBuilder();
             sqlQueryBuilder.CreateQuery();
 
             EmailSender emailSender = new EmailSender();
             emailSender.SendEmail();
 
             //-------------Adapter---------------
-            CurrencyDisplay  currencyDisplay =new CurrencyDisplay();
+            CurrencyDisplay currencyDisplay = new CurrencyDisplay();
             currencyDisplay.DisplayBorkerRecordOnUI();
 
             PaymentGateway paymentGateway = new PaymentGateway();
@@ -81,7 +92,7 @@ namespace MasterDesginPattern
 
 
             //------------Proxy--------------
-            CalculationEngineClient calculationEngine=new CalculationEngineClient();
+            CalculationEngineClient calculationEngine = new CalculationEngineClient();
             calculationEngine.PerformCalculation();
 
             StockPrice stockPrice = new StockPrice();
@@ -96,7 +107,7 @@ namespace MasterDesginPattern
             //------------------Strategy--------------------------
             Shipment shipment = new Shipment();
 
-           
+
 
             Console.ReadLine();
 
