@@ -15,7 +15,8 @@ namespace MasterDesginPattern
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, Design Pattern World!");
+            Console.WriteLine("Design Pattern and Principles!");
+
             //-------------Observer-------------
             RefactorEventAggregator refactorEvent = new RefactorEventAggregator();
             refactorEvent.Simulator();

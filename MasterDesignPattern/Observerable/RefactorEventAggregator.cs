@@ -4,6 +4,25 @@
     {
         public void Simulator()
         {
+            /*
+             
+             Case 1: Subscriber runs before Publisher
+                var investor = new Investor("Alice", aggregator);  // subscribes first
+                var ticker = new StockTicker("MSFT", aggregator);  // publisher created after
+                ticker.SetPrice(250.5m);
+                **Subscriber-before-publisher works fine because events are delivered only when publisher calls Publish().
+             
+             Case 2: Publisher runs before Subscriber
+                var ticker = new StockTicker("MSFT", aggregator);  // publisher created first
+                ticker.SetPrice(250.5m);                           // publishes event before any subscribers
+                var investor = new Investor("Alice", aggregator);  // subscribes after event published
+                ticker.SetPrice(255.0m);                           // publishes another event
+                **Publisher-before-subscriber works fine because events are delivered only when publisher calls Publish().
+                *When Alice subscribes later, she will only get future updates, not past ones.
+             */
+
+
+
             var eventAggregator = new ConcreteEventAggreator();
 
             var investor1 = new Investor("Alice", eventAggregator);
