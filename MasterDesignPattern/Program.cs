@@ -8,6 +8,7 @@ using MasterDesignPattern.COR;
 using MasterDesignPattern.Factory;
 using MasterDesignPattern.Observerable;
 using MasterDesignPattern.Prototype;
+using MasterDesignPattern.Singleton;
 
 namespace MasterDesginPattern
 {
@@ -16,6 +17,17 @@ namespace MasterDesginPattern
         static void Main(string[] args)
         {
             Console.WriteLine("Design Pattern and Principles!");
+            //-------------Singleton -------------
+            EagerSingleton eagerSingleton = new EagerSingleton();
+            eagerSingleton.Simulate();
+
+
+            PerThreadSingleton perThreadSingleton = new PerThreadSingleton();
+            perThreadSingleton.Simulator();
+
+            MarketDataFeed marketData = new MarketDataFeed();
+            marketData.Simulate();
+
 
             //-------------Observer-------------
             RefactorEventAggregator refactorEvent = new RefactorEventAggregator();
