@@ -1,0 +1,85 @@
+﻿
+Domain Driven Design
+ - Value Object
+ - Entity
+ - Domain Model
+ - Aggregate
+ - Factories
+ - Repositories
+ - Services
+ - Domain Events
+ - Bounded Context
+ - Controller
+
+ Value Object 
+ =================================================================================
+   - Mean no identity just values and compare with values and always immutable
+      - e.g Money,Co-ordinate,Sku,Address,Currency
+   - Use Record to implement the Value Object
+
+ Domain Model
+ =================================================================================
+ A Domain Model is the conceptual representation of your business domain expressed in code.
+ -> It consists of Entities, Value Objects, Aggregates, Services, Repositories, and Factories.
+ -> It captures business rules, invariants, and behaviors, not just data.
+ -> So, a Domain Model is not just classes with properties.
+ -> It’s about modeling business logic in an object-oriented (or functional) way.
+
+ Aggregate
+ ============================================================================================
+ - Aggregate root which has-a composition of Value Object and entities
+ - Aggregate root has also domain logic related to that entity
+ - Aggregate root has Invarient Business rules
+ - Controlled access you do not allow the external to modify the data directly
+ - An Aggregate Root is the main Entity of an Aggregate.
+
+ Factory Method
+ ==================================================================================
+ - Encapsulate the logic of object creation 
+ - Private constructor and static factory method allow to create the object inside the class
+ - Fully immutable
+ - Enforce Invariants
+ - Named Creation for Clarity
+ - Factory methods make unit testing easier → you can centralize object creation.
+
+ public class BankAccount
+{
+    private BankAccount(Guid id, decimal balance) { ... }
+
+    public static BankAccount CreateSavings(decimal initialDeposit) =>
+        new BankAccount(Guid.NewGuid(), initialDeposit);
+
+    public static BankAccount CreateChecking(decimal initialDeposit) =>
+        new BankAccount(Guid.NewGuid(), initialDeposit);
+}
+✅ Use when:
+
+Object creation is non-trivial (validation, default values, IDs).
+
+You need to enforce invariants at creation time.
+
+You want to avoid “telescoping constructors” with too many overloads.
+
+You want expressive names for different creation paths.
+
+You might return different subclasses depending on input.
+
+ Entity
+ =====================================================================
+ - Entity = has identity and lifecycle. e.g Customer ,Product
+ - Aggregate = group of related entities + value objects with one root entity that enforces rules & boundaries.
+    Student has Subjects.
+    where subject is entity and student is aggreagate root.
+
+
+ Invariant
+ ===============================================================================
+ An Invariant is a rule or condition that must always be true for your domain model to remain valid.
+ - Invariant: “Balance can never go below overdraft limit.”
+ 
+ if (quantity <= 0)
+            throw new InvalidOperationException("Quantity must be positive");
+
+      
+
+

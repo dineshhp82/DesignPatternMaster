@@ -1,0 +1,212 @@
+﻿
+    * Requirement and work flow
+     * 
+     * Product Catalog Management => Customer → Browses Products → Applies Pricing Strategy → Adds to Cart
+     * Order Processing => Cart Checkout → Order Creation → Payment Processing → Status Updates → Notifications
+     * 
+     *  - Product Selection: Customers browse products with various pricing strategies
+        - Cart Management: Items are added with quantity-based pricing
+        - Order Creation: Immutable order is created with validation
+        - Payment Processing: Decorated payment processing with logging
+        - Status Tracking: Observer pattern notifies of status changes
+        - Inventory Management: Stock levels are automatically updated
+     * 
+     * Work flow
+     * - Customer Browses Products:
+          Customer -> ProductRepository: GetAvailableProducts()
+          ProductRepository -> Product: Return product list
+          Customer -> PricingStrategyFactory: Create("percentage")
+          PricingStrategyFactory -> PercentageDiscountStrategy: Return instance
+       
+         - Customer Adds to Cart:
+           Customer -> ShoppingCart: AddItem(product, quantity)
+           ShoppingCart -> PricingStrategy: CalculatePrice(product, quantity)
+           PricingStrategy -> Money: Return discounted price
+
+         - Customer Checks Out:
+           Customer -> PlaceOrderCommand: Create(customerId, address, items, payment)
+           Customer -> PlaceOrderCommandHandler: HandleAsync(command)
+
+        - Order Creation:
+           PlaceOrderCommandHandler -> OrderService: CreateOrderAsync(customerId, address, items)
+           OrderService -> Order: Create new order
+           OrderService -> Product: UpdateStock(-quantity)
+           OrderService -> OrderRepository: AddAsync(order)
+
+       - Payment Processing:
+           PlaceOrderCommandHandler -> OrderService: ProcessOrderPaymentAsync(orderId, payment)
+           OrderService -> LoggingPaymentProcessor: ProcessPaymentAsync(order, payment)
+           LoggingPaymentProcessor -> CreditCardProcessor: ProcessPaymentAsync(order, payment)
+           LoggingPaymentProcessor -> Logger: Log payment attempt
+           OrderService -> Order: Confirm()
+           Order -> OrderObservers: Notify status change (Pending → Confirmed)
+           OrderNotifier -> NotificationService: SendOrderConfirmationAsync(order)
+       
+        - Order Fulfillment:
+           Admin -> Order: Ship()
+           Order -> OrderObservers: Notify status change (Confirmed → Shipped)
+           OrderNotifier -> NotificationService: SendShippingNotificationAsync(order)
+
+        - Order Completion:
+           System -> Order: Complete()
+           Order -> OrderObservers: Notify status change (Shipped → Completed)
+
+
+    ┌─────────────────────────────────────────────────────────────────────────────┐
+│                             ONLINE SHOPPING SYSTEM                          │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+                                    +---------------------+
+                                    |      <<interface>>   |
+                                    |     IRepository<T>   |
+                                    +---------------------+
+                                    | +GetByIdAsync()     |
+                                    | +AddAsync()         |
+                                    | +UpdateAsync()      |
+                                    | +DeleteAsync()      |
+                                    +----------^----------+
+                                               | implements
+                                               |
+                    +--------------------------+----------------------------+
+                    |                          |                            |
+        +-----------+-----------+    +---------+-----------+    +-----------+-----------+
+        |   ProductRepository   |    |   OrderRepository   |    |   CustomerRepository  |
+        +-----------------------+    +---------------------+    +-----------------------+
+        | -products: List<Product>|  | -orders: List<Order>|    | -customers: List<Customer>|
+        +-----------------------+    +---------------------+    +-----------------------+
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                DOMAIN MODEL                                 │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+                         +-----------------------+
+                         |        Entity         |
+                         +-----------------------+
+                         | -Id: Guid             |
+                         | -CreatedAt: DateTime  |
+                         | -UpdatedAt: DateTime? |
+                         +-----------------------+
+                                 ^
+                                 | extends
+                                 |
+             +-----------------------------------------------+
+             |                   |                           |
++------------+--------+   +------+--------+   +--------------+-----------+
+|       Product       |   |      Order    |   |        Customer          |
++---------------------+   +---------------+   +--------------------------+
+| -Name: string       |   | -OrderId: OrderId| | -FirstName: string      |
+| -Description: string|   | -CustomerId: Guid| | -LastName: string       |
+| -Price: Money       |   | -Status: OrderStatus| -Email: string         |
+| -StockQuantity: int |   | -TotalAmount: Money| +PlaceOrder()           |
+| -Category: string   |   | -ShippingAddress: Address| +UpdateProfile()  |
+| +UpdateStock()      |   | +AddItem()      | +--------------------------+
+| +UpdatePrice()      |   | +Confirm()      |
++---------------------+   | +Ship()         |
+                          | +Complete()     |
+                          +-----------------+
+                                  ^
+                                  | aggregates
+                                  |
+                          +-------+--------+
+                          |    OrderItem   |
+                          +----------------+
+                          | -Product: Product|
+                          | -Quantity: int |
+                          | -UnitPrice: Money|
+                          +----------------+
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                             DESIGN PATTERNS                                 │
+└─────────────────────────────────────────────────────────────────────────────┘
+
++---------------------+      +----------------------+
+|  <<interface>>      |      |   PricingStrategy    |
+|  IPricingStrategy   |      |       Factory        |
++---------------------+      +----------------------+
+| +CalculatePrice()   |      | +Create(): IPricingStrategy|
++----------^----------+      +----------------------+
+           | implements
+           |
++----------+----------+
+|   DiscountStrategy  |  (Template Method Pattern)
++---------------------+
+| #ApplyDiscount()    |
++----------^----------+
+           | extends
+           |
++----------+----------+    +-----------------------+
+| PercentageDiscount  |    |   BulkDiscountStrategy|
++---------------------+    +-----------------------+
+| -percentage: decimal|    | -minQuantity: int     |
++---------------------+    | -percentage: decimal  |
+                           +-----------------------+
+
++---------------------+      +----------------------+
+|  <<interface>>      |      |   <<interface>>      |
+|  IPaymentProcessor  |      |   IOrderObserver     |
++---------------------+      +----------------------+
+| +ProcessPayment()   |      | +OnOrderStatusChanged()|
++----------^----------+      +----------^-----------+
+           | implements                 | implements
+           |                            |
++----------+----------+       +---------+---------+
+| CreditCardProcessor |       |    OrderNotifier  |
++---------------------+       +-------------------+
+                              | -notificationService|
+                              +-------------------+
+
++---------------------+
+| LoggingPaymentProcessor |  (Decorator Pattern)
++---------------------+
+| -innerProcessor     |
+| -logger             |
++---------------------+
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                SERVICES                                     │
+└─────────────────────────────────────────────────────────────────────────────┘
+
++---------------------+      +----------------------+
+|    OrderService     |      | PlaceOrderCommand    |  (Command Pattern)
++---------------------+      +----------------------+
+| -orderRepository    |      | -CustomerId: Guid    |
+| -productRepository  |      | -ShippingAddress     |
+| -paymentProcessor   |      | -Items: Dictionary   |
+| -observers          |      | -PaymentDetails      |
++---------------------+      +----------------------+
+| +CreateOrderAsync() |
+| +ProcessPaymentAsync()|
++---------------------+
+
++-----------------------+
+| PlaceOrderCommandHandler |  (Command Pattern)
++-----------------------+
+| -orderService         |
++-----------------------+
+| +HandleAsync()        |
++-----------------------+
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                             VALUE OBJECTS                                   │
+└─────────────────────────────────────────────────────────────────────────────┘
+
++---------------------+      +----------------------+
+|        Money        |      |       Address        |
++---------------------+      +----------------------+
+| -Amount: decimal    |      | -Street: string      |
+| -Currency: string   |      | -City: string        |
++---------------------+      | -State: string       |
+| +Add()              |      | -ZipCode: string     |
+| +Multiply()         |      | -Country: string     |
++---------------------+      +----------------------+
+                             | +IsValid(): bool     |
+                             +----------------------+
+
++---------------------+      +----------------------+
+|      ProductId      |      |       OrderId        |
++---------------------+      +----------------------+
+| -Value: Guid        |      | -Value: Guid         |
++---------------------+      +----------------------+
+| +New(): ProductId   |      | +New(): OrderId      |
++---------------------+      +----------------------+
+     */
