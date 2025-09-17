@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasterDesignPattern", "Mast
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperMarket", "SuperMarket\SuperMarket.csproj", "{D41B47E5-D231-4155-844D-00F65EF74018}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainDriveDesignBasic", "DomainDriveDesginBasic\DomainDriveDesignBasic.csproj", "{AB410BA6-E6FE-4E68-B8F1-99DEFD3C2EBC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainDriveDesignBasic", "DomainDriveDesignBasic\DomainDriveDesignBasic.csproj", "{B71625ED-7BFD-9397-2710-45264911BB37}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{D41B47E5-D231-4155-844D-00F65EF74018}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D41B47E5-D231-4155-844D-00F65EF74018}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D41B47E5-D231-4155-844D-00F65EF74018}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AB410BA6-E6FE-4E68-B8F1-99DEFD3C2EBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AB410BA6-E6FE-4E68-B8F1-99DEFD3C2EBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AB410BA6-E6FE-4E68-B8F1-99DEFD3C2EBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AB410BA6-E6FE-4E68-B8F1-99DEFD3C2EBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B71625ED-7BFD-9397-2710-45264911BB37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B71625ED-7BFD-9397-2710-45264911BB37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B71625ED-7BFD-9397-2710-45264911BB37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B71625ED-7BFD-9397-2710-45264911BB37}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
