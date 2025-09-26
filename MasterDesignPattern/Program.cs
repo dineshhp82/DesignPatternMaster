@@ -6,8 +6,10 @@ using MasterDesignPattern.Builder;
 using MasterDesignPattern.Composite;
 using MasterDesignPattern.COR;
 using MasterDesignPattern.Factory;
+using MasterDesignPattern.Mediator;
 using MasterDesignPattern.Observerable;
 using MasterDesignPattern.Prototype;
+using MasterDesignPattern.ResultPattern;
 using MasterDesignPattern.Singleton;
 
 namespace MasterDesginPattern
@@ -17,6 +19,24 @@ namespace MasterDesginPattern
         static void Main(string[] args)
         {
             Console.WriteLine("Design Pattern and Principles!");
+            //--------------Mediator------------------
+            var tradeExceution = new TradeExecutions();
+
+            //--------------Result-------------
+
+            var bankTransacation = new BankTransacation();
+            var myAccount = new Account() { Balance = 5000 };
+            var result = bankTransacation.Withdraw(myAccount, 8000);
+
+            if(result.IsSuccess)
+            {
+                Console.WriteLine($"Transaction Success! New Balance: {result.Value}");
+            }
+            else
+            {
+                Console.WriteLine($"Transaction Failed! Error: {result.Error}");
+            }   
+
             //-------------Singleton -------------
             EagerSingleton eagerSingleton = new EagerSingleton();
             eagerSingleton.Simulate();
@@ -33,7 +53,7 @@ namespace MasterDesginPattern
             RefactorEventAggregator refactorEvent = new RefactorEventAggregator();
             refactorEvent.Simulator();
 
-           EventAggregatorSimulator eventAggregatorSimulator=new EventAggregatorSimulator();
+            EventAggregatorSimulator eventAggregatorSimulator = new EventAggregatorSimulator();
             eventAggregatorSimulator.EventAggregatorSimulate();
 
             EventBased eventBased = new EventBased();
